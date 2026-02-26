@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Culture Pulse 360™ | Theory of Practice</title>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blue:    #38bdf8;
+  --teal:    #2dd4bf;
+  --purple:  #a78bfa;
+  --rose:    #fb7185;
+  --amber:   #fbbf24;
+  --green:   #4ade80;
+  --dark:    #020617;
+  --panel:   #0f172a;
+  --surface: #1e293b;
+  --muted:   #334155;
+  --text:    #f1f5f9;
+  --dim:     #94a3b8;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── INTRO ANIMATION ── */
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeOverlay 5.5s forwards;
+}
+
+@keyframes fadeOverlay {
+  0%   { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+.file-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: stackScroll 3.5s ease-in-out forwards;
+  transform: translateY(60px);
+  opacity: 0;
+}
+
+@keyframes stackScroll {
+  0%   { transform: translateY(60px); opacity: 0; }
+  20%  { transform: translateY(0);    opacity: 1; }
+  80%  { transform: translateY(-80px); opacity: 1; }
+  100% { transform: translateY(-120px); opacity: 0; }
+}
+
+.file-card {
+  width: 320px;
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-icon { font-size: 1.4rem; }
+.file-name { font-size: 0.82rem; color: #94a3b8; font-family: monospace; }
+.file-tag  { font-size: 0.7rem; color: #38bdf8; margin-top: 2px; }
+
+.intro-brand {
+  position: absolute;
+  bottom: 15%;
+  text-align: center;
+  animation: brandFade 5.5s forwards;
+  opacity: 0;
+}
+
+@keyframes brandFade {
+  0%   { opacity: 0; }
+  60%  { opacity: 0; }
+  85%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.intro-brand h1 {
+  font-size: 2.2rem;
+  color: #38bdf8;
+  letter-spacing: 0.04em;
+}
+
+.intro-brand p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 6px;
+}
+
+/* ── NAVIGATION ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #1e293b;
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-brand {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-right: auto;
+  letter-spacing: 0.04em;
+}
+
+nav a {
+  font-size: 0.78rem;
+  color: var(--dim);
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover { background: #1e293b; color: var(--text); }
+
+/* ── SECTIONS ── */
+section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.full-bleed {
+  max-width: 100%;
+  padding: 5rem 2rem;
+}
+
+.section-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 6rem 2rem 4rem;
+  max-width: 100%;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, #0c2a4a 0%, #020617 70%);
+  border-bottom: 1px solid #1e293b;
+}
+
+.hero-inner { max-width: 800px; margin: 0 auto; width: 100%; }
+
+.hero-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 1.25rem;
+}
+
+#hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(135deg, #f1f5f9 30%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--dim);
+  line-height: 1.7;
+  max-width: 640px;
+  margin-bottom: 2rem;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+
+.badge-blue   { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
+.badge-teal   { background: rgba(45,212,191,0.12); color: #2dd4bf; border: 1px solid rgba(45,212,191,0.25); }
+.badge-purple { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.25); }
+.badge-rose   { background: rgba(251,113,133,0.12); color: #fb7185; border: 1px solid rgba(251,113,133,0.25); }
+.badge-amber  { background: rgba(251,191,36,0.12);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.25); }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: 12px;
+  padding: 1.1rem 1rem;
+  text-align: center;
+}
+
+.stat-card .num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--blue);
+  display: block;
+}
+
+.stat-card .lbl {
+  font-size: 0.72rem;
+  color: var(--dim);
+  margin-top: 0.25rem;
+}
+
+/* ── SECTION HEADERS ── */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+h2.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.section-desc {
+  font-size: 1rem;
+  color: var(--dim);
+  line-height: 1.8;
+  max-width: 720px;
+  margin-bottom: 2.5rem;
+}
+
+/* ── JOURNEY TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.65rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #38bdf8, #a78bfa, #fb7185, #4ade80);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2.1rem;
+  top: 0.35rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--dark);
+}
+
+.timeline-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.timeline-item p {
+  font-size: 0.9rem;
+  color: var(--dim);
+  line-height: 1.7;
+}
+
+.timeline-item .cite {
+  font-size: 0.77rem;
+  color: #475569;
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+/* ── FRAMEWORK CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: var(--blue);
+  transform: translateY(-3px);
+}
+
+.card-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.875rem;
+  color: var(--dim);
+  line-height: 1.7;
+}
+
+.card .tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  margin-top: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+/* ── LOGIC MODEL ── */
+.logic-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.logic-step {
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.logic-step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: var(--blue);
+  z-index: 2;
+  background: var(--dark);
+  padding: 0 4px;
+}
+
+.logic-step .step-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--blue);
+  margin-bottom: 0.4rem;
+}
+
+.logic-step h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+
+.logic-step p {
+  font-size: 0.75rem;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+/* ── RESEARCH TABLE ── */
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.research-card {
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  border-left: 4px solid;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.research-card h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.research-card .author {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.research-card p {
+  font-size: 0.82rem;
+  color: var(--dim);
+  line-height: 1.65;
+}
+
+/* ── DOL ALIGNMENT ── */
+.dol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.dol-card {
+  background: var(--panel);
+  border: 1px solid var(--muted);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.dol-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.dol-card h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.dol-card p {
+  font-size: 0.8rem;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+.dol-card .align-note {
+  font-size: 0.75rem;
+  color: var(--teal);
+  margin-top: 0.6rem;
+  font-style: italic;
+  border-top: 1px solid var(--muted);
+  padding-top: 0.5rem;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--muted);
+  margin: 0;
+}
+
+/* ── ALTERNATING BG ── */
+.bg-alt { background: #080f1e; }
+
+/* ── FOOTER ── */
+footer {
+  background: #000;
+  border-top: 1px solid #1e293b;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+footer p { font-size: 0.8rem; color: #334155; line-height: 1.8; }
+footer strong { color: #475569; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  nav a { display: none; }
+  .logic-step:not(:last-child)::after { display: none; }
+  .logic-flow { gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     INTRO ANIMATION (5 seconds)
+══════════════════════════════════════════ -->
+<div id="intro-overlay">
+  <div class="file-stack">
+    <div class="file-card">
+      <span class="file-icon">📊</span>
+      <div>
+        <div class="file-name">culture_pulse_reliability_2021.pdf</div>
+        <div class="file-tag">Cronbach's α = .950 · McDonald's Ω = .951</div>
+      </div>
+    </div>
+    <div class="file-card">
+      <span class="file-icon">🏫</span>
+      <div>
+        <div class="file-name">KSC_pilot_cohort_379_responses.pdf</div>
+        <div class="file-tag">15 school sites · 6 domains · 95 items</div>
+      </div>
+    </div>
+    <div class="file-card">
+      <span class="file-icon">📋</span>
+      <div>
+        <div class="file-name">westchester_culture_pulse_93_educators.pdf</div>
+        <div class="file-tag">Fall 2023 · District-wide analysis</div>
+      </div>
+    </div>
+    <div class="file-card">
+      <span class="file-icon">🔬</span>
+      <div>
+        <div class="file-name">dissertation_cultural_capacity_gonzalez.pdf</div>
+        <div class="file-tag">Indiana State University · PhD · May 2025</div>
+      </div>
+    </div>
+    <div class="file-card">
+      <span class="file-icon">🧠</span>
+      <div>
+        <div class="file-name">introspective_leadership_framework.pdf</div>
+        <div class="file-tag">EducatorAide, Inc. · Proprietary framework</div>
+      </div>
+    </div>
+    <div class="file-card">
+      <span class="file-icon">🤖</span>
+      <div>
+        <div class="file-name">DOL_AI_literacy_framework_alignment.pdf</div>
+        <div class="file-tag">5 Foundational Content Areas · 7 Delivery Principles</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="intro-brand">
+    <h1>Culture Pulse 360™</h1>
+    <p>Loading theory of practice &amp; logic model…</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+<nav>
+  <span class="nav-brand">Culture Pulse 360™</span>
+  <a href="#journey">The Journey</a>
+  <a href="#frameworks">Frameworks</a>
+  <a href="#logic">Logic Model</a>
+  <a href="#research">Research</a>
+  <a href="#ai">AI Literacy</a>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<div id="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">EducatorAide, Inc. · LRF Bird Equity Consulting · Identity Capital Consulting</p>
+    <h1>From Employee Voice<br>to Distributive Leadership</h1>
+    <p class="hero-sub">
+      The Culture Pulse 360™ is a validated, human-centered organizational culture assessment that takes every employee on a deliberate reflective journey — from individual skills mastery through emotions, trust, and systemic leadership — producing the exact data a team needs to build a distributive leadership model from the inside out.
+    </p>
+    <div class="badge-row">
+      <span class="badge badge-blue">Cronbach's α = .950</span>
+      <span class="badge badge-teal">McDonald's Ω = .951</span>
+      <span class="badge badge-purple">379 Pilot Responses</span>
+      <span class="badge badge-rose">6 Domains · 70 Items</span>
+      <span class="badge badge-amber">DOL AI Literacy Aligned</span>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card"><span class="num">95</span><span class="lbl">Original Survey Items</span></div>
+      <div class="stat-card"><span class="num">6</span><span class="lbl">Culture Domains</span></div>
+      <div class="stat-card"><span class="num">15+</span><span class="lbl">School Sites Piloted</span></div>
+      <div class="stat-card"><span class="num">5yr</span><span class="lbl">Longitudinal Data</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════
+     SECTION 1: THE REFLECTIVE JOURNEY
+══════════════════════════════════════════ -->
+<section id="journey">
+  <p class="section-label" style="color: var(--blue);">Theory of Practice</p>
+  <h2 class="section-title">How the Questions Take Employees on a Journey</h2>
+  <p class="section-desc">
+    The Culture Pulse 360™ is not a simple satisfaction survey. Every question set is intentionally sequenced to move the respondent through ascending layers of self-awareness — beginning with cognitive skill reflection and ending at the most vulnerable interior: trust, identity, and psychological safety. This sequence mirrors Carl Rogers' person-centered framework and Taibi Kahler's Process Communication Model (PCM), both of which center the psychological interior of the individual before asking them to evaluate systems.
+  </p>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: #38bdf8;"></div>
+      <h3 style="color:#38bdf8;">Layer 1 — Skills Reflection (Cognitive)</h3>
+      <p><strong>Domain: Planning & Preparation (Individual)</strong><br>
+      Employees begin by rating their own instructional mastery — priority standards, unit design, data cycles. This activates the <em>cognitive frame</em> and establishes psychological safety through self-directed, low-threat reflection. It says: "This is about what you know." Anchored in <strong>Bandura's self-efficacy theory</strong>, this layer builds the respondent's confidence to go deeper.</p>
+      <p class="cite">Bandura, A. (1997). Self-efficacy: The exercise of control. W.H. Freeman. | Rogers, C. (1961). On Becoming a Person. Houghton Mifflin.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: #2dd4bf;"></div>
+      <h3 style="color:#2dd4bf;">Layer 2 — Systems Awareness (Organizational)</h3>
+      <p><strong>Domain: Planning & Preparation (Building Level)</strong><br>
+      The respondent shifts from self to system — evaluating whether their building has the structures in place to support what they just said they know. This is the first moment of <em>cognitive dissonance</em>: "I know it, but does my building operationalize it?" This tension is productive and rooted in <strong>Ruth Benedict's cultural patterns theory</strong> — that individual behavior is shaped by the patterns of the culture that surrounds it.</p>
+      <p class="cite">Benedict, R. (1934). Patterns of Culture. Houghton Mifflin. | Kitayama, S. (2002). Cultural psychology of the self. Philosophical Psychology, 15(4).</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: #a78bfa;"></div>
+      <h3 style="color:#a78bfa;">Layer 3 — Classroom Practice (Implementation)</h3>
+      <p><strong>Domain: Delivery of Instruction</strong><br>
+      Now the survey moves to <em>daily embodiment</em>. Are culturally responsive tenets and MTSS strategies actually embedded in classroom practice? This is behavior-level data — not just knowledge, but action. The gap between Layer 1 and Layer 3 is one of the most powerful diagnostic signals in the entire instrument.</p>
+      <p class="cite">Gonzalez, J. (2021). Cultural Capacity Framework™. EducatorAide, Inc.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: #fb7185;"></div>
+      <h3 style="color:#fb7185;">Layer 4 — Emotions & Engagement (Affective)</h3>
+      <p><strong>Domain: Leadership Development</strong><br>
+      Questions about feedback frequency, peer learning, professional reading, and introspective practices reveal the <em>affective engagement</em> of the respondent with their own growth. <strong>Candace Pert's molecules of emotion research</strong> grounds the premise that emotions are physiological data — not soft data. How a person feels about their professional growth directly predicts their capacity for change. <strong>Taibi Kahler's PCM</strong> further maps six distinct psychological types, each of which has a different channel for authentic engagement.</p>
+      <p class="cite">Pert, C. (1997). Molecules of Emotion. Scribner. | Kahler, T. (1974). The Process Communication Model. Kahler Communications Inc.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: #fbbf24;"></div>
+      <h3 style="color:#fbbf24;">Layer 5 — Trust & Psychological Safety (Relational)</h3>
+      <p><strong>Domain: Belonging & Inclusion</strong><br>
+      The deepest cognitive and emotional shift occurs here: "Does my evaluator understand what it's like to be me?" "Do I have colleagues I trust?" These are questions of <em>relational safety</em>. <strong>Eric Berne's Transactional Analysis</strong> informs this layer — people respond authentically in relationships only when they feel their psychological position is secure. <strong>Masaru Emoto's research</strong> on the energetic impact of environment on matter provides a metaphoric (and increasingly cited) argument that the emotional climate of an organization has measurable effects on the people within it.</p>
+      <p class="cite">Berne, E. (1964). Games People Play. Grove Press. | Emoto, M. (2004). The Hidden Messages in Water. Beyond Words Publishing. | Kitayama, S. & Markus, H.R. (1994). Emotion and Culture. APA.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot" style="background: #4ade80;"></div>
+      <h3 style="color:#4ade80;">Layer 6 — Systems Leadership (Institutional)</h3>
+      <p><strong>Domain: Operations & Talent Management</strong><br>
+      The journey culminates with employees reflecting on whether <em>the institution itself</em> — principal, teacher leaders, district office, board — embodies the values it says it holds. This is the organizational mirror. <strong>Shinobu Kitayama's cultural self model</strong> posits that the self is inseparable from its cultural and institutional context. When organizational leaders model values with integrity, it creates a feedback loop that strengthens individual and collective cultural capacity.</p>
+      <p class="cite">Kitayama, S. (2002). Cultural and basic psychological processes. Psychological Bulletin, 128(2). | Gonzalez, J. (2021). Introspective Leadership Questions™. EducatorAide, Inc.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════
+     SECTION 2: PROPRIETARY FRAMEWORKS
+══════════════════════════════════════════ -->
+<div class="bg-alt">
+<section id="frameworks">
+  <p class="section-label" style="color: var(--purple);">Proprietary Frameworks</p>
+  <h2 class="section-title">Cultural Capacity™ &amp; Introspective Leadership Questions™</h2>
+  <p class="section-desc">
+    These two frameworks — developed by Justine R. Gonzalez, Founder of EducatorAide, Inc. and PhD researcher at Indiana State University — form the conceptual spine of the Culture Pulse 360™ process. They are not decorative; they are the <em>mechanism</em> by which survey data becomes leadership action.
+  </p>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-icon">🌱</div>
+      <h3>Cultural Capacity™</h3>
+      <p>Cultural Capacity is defined as a leader's measurable ability to reflect, learn, and apply cultural intelligence across intercultural encounters — and to adapt their daily practices accordingly. It is the predictive variable between what an educator knows about culture and what they actually do in service of the students, staff, and communities they lead.</p>
+      <p style="margin-top:0.75rem; font-size:0.82rem; color:var(--dim);">Grounded in <strong>Livermore's Cultural Intelligence (CQ)</strong> model and <strong>Kitayama's interdependent self-construal</strong>, Cultural Capacity extends both frameworks by adding an accountability and action layer: data → reflection → action plan → implementation → measurement.</p>
+      <span class="tag badge-purple">© EducatorAide, Inc.</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>Introspective Leadership Questions™</h3>
+      <p>A proprietary protocol of leader-facing questions embedded across the Culture Pulse 360™ guided analysis sessions. These questions are designed not to be answered quickly — they are designed to <em>create productive dissonance</em>. They ask leaders to sit in the gap between what their data says about their building's climate and what they believed to be true.</p>
+      <p style="margin-top:0.75rem; font-size:0.82rem; color:var(--dim);">Rooted in <strong>Carl Rogers' unconditional positive regard</strong>, <strong>Taibi Kahler's PCM distress sequence awareness</strong>, and <strong>Eric Berne's ego state model</strong>, these questions activate the "Adult ego state" — moving leaders out of reactive, automatic responses into data-informed, values-aligned decision-making.</p>
+      <span class="tag badge-rose">© EducatorAide, Inc.</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🔄</div>
+      <h3>The Reflect · Learn · Apply Cycle</h3>
+      <p>Every Culture Pulse 360™ experience is structured around three recursive phases. <strong>Reflect</strong> — employees engage the survey as a personal mirror. <strong>Learn</strong> — leaders engage aggregated data in guided analysis sessions to surface patterns. <strong>Apply</strong> — teams co-construct action plans from the data, building distributive ownership of the solution.</p>
+      <p style="margin-top:0.75rem; font-size:0.82rem; color:var(--dim);">This cycle prevents the most common failure mode of organizational surveys: data that is collected but never used. The Reflect-Learn-Apply cycle transforms the survey from a diagnostic into a <em>change management engine</em>.</p>
+      <span class="tag badge-teal">Cultural Capacity Weekly™</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏛️</div>
+      <h3>Distributive Leadership Model</h3>
+      <p>The ultimate output of the Culture Pulse 360™ process is not a report — it is a <strong>distributive leadership model</strong> built from employee voices. When grade-level teams, department heads, instructional coaches, and building principals all engage the same human-centered data set, they develop shared language, shared urgency, and shared accountability.</p>
+      <p style="margin-top:0.75rem; font-size:0.82rem; color:var(--dim);">Grounded in <strong>Hoy, Goddard & Woolfolk's collective efficacy research</strong> (r = .67, p &lt; .001), this model demonstrates that when cultural trust is built across layers of an organization, student and organizational outcomes measurably improve.</p>
+      <span class="tag badge-amber">Evidence-Based</span>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════
+     SECTION 3: LOGIC MODEL
+══════════════════════════════════════════ -->
+<section id="logic">
+  <p class="section-label" style="color: var(--amber);">Logic Model</p>
+  <h2 class="section-title">From Survey to Systemic Change</h2>
+  <p class="section-desc">
+    The Culture Pulse 360™ process is not a single event. It is a sequenced change management system. Each phase builds on the last, with the guided analysis and planning day serving as the crucible where employee voice becomes collective action.
+  </p>
+
+  <div class="logic-flow">
+    <div class="logic-step">
+      <div class="step-num">INPUT</div>
+      <h4>Survey Administration</h4>
+      <p>70-item validated instrument deployed anonymously to all certified staff</p>
+    </div>
+    <div class="logic-step">
+      <div class="step-num">ACTIVITY 1</div>
+      <h4>Data Analysis Report</h4>
+      <p>Disaggregated school-by-school analysis with domain-level scores and qualitative coding</p>
+    </div>
+    <div class="logic-step">
+      <div class="step-num">ACTIVITY 2</div>
+      <h4>Guided Analysis Session</h4>
+      <p>Facilitated leader experience using Introspective Leadership Questions™ to interrogate data patterns</p>
+    </div>
+    <div class="logic-step">
+      <div class="step-num">ACTIVITY 3</div>
+      <h4>Planning Day</h4>
+      <p>Cross-role teams co-construct action plans with KPIs tied directly to Culture Pulse domain gaps</p>
+    </div>
+    <div class="logic-step">
+      <div class="step-num">OUTPUT</div>
+      <h4>Distributive Leadership Model</h4>
+      <p>Shared accountability structures owned by teacher leaders, coaches, and administrators</p>
+    </div>
+    <div class="logic-step">
+      <div class="step-num">OUTCOME</div>
+      <h4>Cultural Capacity Growth</h4>
+      <p>Year-over-year domain score improvements · 51.6% rise in equity engagement (KSC, 2021–2024)</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 2.5rem;">
+    <p class="section-label" style="color: var(--amber);">The Interactive Guided Analysis — What Makes It Unique</p>
+    <div class="card-grid" style="margin-top:1rem;">
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Employee Voice as the Data Source</h3>
+        <p>No external consultant tells the organization what is wrong. The employees already said it. The guided analysis session simply holds up the mirror — and the Introspective Leadership Questions™ ensure leaders do not look away.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧩</div>
+        <h3>PCM-Informed Facilitation</h3>
+        <p>Facilitators trained in Taibi Kahler's Process Communication Model read the room in real time — identifying which psychological needs are active in the group and adjusting communication channels accordingly to ensure every voice type is engaged, not just the loudest.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📌</div>
+        <h3>Action Plans Anchored to Data</h3>
+        <p>Every action step written during the planning day is traceable back to a specific Culture Pulse domain and a specific set of employee responses. This eliminates vague professional development plans and replaces them with precision-targeted interventions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════
+     SECTION 4: RESEARCH CITATIONS
+══════════════════════════════════════════ -->
+<div class="bg-alt">
+<section id="research">
+  <p class="section-label" style="color: var(--rose);">Theoretical Foundations</p>
+  <h2 class="section-title">The Research That Built This Instrument</h2>
+  <p class="section-desc">
+    The Culture Pulse 360™ synthesizes over a century of research across psychology, cultural neuroscience, transactional analysis, and organizational behavior. These are not decorative citations — each scholar's body of work directly informs how a specific section of the instrument is designed, sequenced, and interpreted.
+  </p>
+
+  <div class="research-grid">
+
+    <div class="research-card" style="border-left-color: #38bdf8;">
+      <div class="author" style="color:#38bdf8;">Eric Berne · Transactional Analysis</div>
+      <h4>Ego States & Authentic Communication</h4>
+      <p>Berne's three ego states — Parent, Adult, Child — directly inform how the Introspective Leadership Questions™ are sequenced. Questions are designed to move leaders out of reactive "Parent" or distress-driven "Child" responses and into the "Adult" state: data-present, values-aligned, and capable of courageous conversation. The Culture Pulse trust and belonging items also detect organizational script patterns that limit psychological safety.</p>
+    </div>
+
+    <div class="research-card" style="border-left-color: #a78bfa;">
+      <div class="author" style="color:#a78bfa;">Carl Rogers · Person-Centered Theory</div>
+      <h4>Unconditional Positive Regard & Self-Actualization</h4>
+      <p>Rogers' core conditions — empathy, congruence, and unconditional positive regard — are the facilitation principles that govern every guided analysis session. The survey itself is designed to be received as a non-judgmental mirror, not a performance evaluation. This Rogerian stance is what enables honest, high-quality response data from employees who often distrust organizational surveys.</p>
+    </div>
+
+    <div class="research-card" style="border-left-color: #2dd4bf;">
+      <div class="author" style="color:#2dd4bf;">Ruth Benedict · Patterns of Culture</div>
+      <h4>Cultural Patterns Shape Individual Behavior</h4>
+      <p>Benedict's foundational anthropological insight — that individuals cannot be understood outside the cultural patterns of their context — directly grounds the "building level" domain. An educator's instructional behavior is not simply a function of individual skill; it is a function of the cultural patterns operationalized (or absent) in their building. The survey gap between individual mastery scores and building-level process scores is a direct measurement of this Benedict effect.</p>
+    </div>
+
+    <div class="research-card" style="border-left-color: #fb7185;">
+      <div class="author" style="color:#fb7185;">Candace Pert · Molecules of Emotion</div>
+      <h4>Emotions Are Physiological Data</h4>
+      <p>Pert's neuroscience research demonstrated that emotions are not merely psychological experiences — they are biochemical events with measurable physical signatures. This grounds the argument that the "soft data" of the Culture Pulse (How do you feel? Do you have trust? Do you feel anxiety during observations?) is not supplemental to the "hard data" — it IS the data. Emotional climate directly predicts cognitive performance and organizational capacity.</p>
+    </div>
+
+    <div class="research-card" style="border-left-color: #fbbf24;">
+      <div class="author" style="color:#fbbf24;">Taibi Kahler · Process Communication Model</div>
+      <h4>Six Personality Types, Six Communication Channels</h4>
+      <p>Kahler's PCM — initially developed as a therapeutic model and later adopted by NASA for astronaut selection and team cohesion — identifies six distinct psychological types, each with a preferred communication channel, a core psychological need, and a predictable distress sequence. The Culture Pulse guided analysis sessions use PCM-trained facilitators to ensure that each personality type's voice is present in the data and honored in the facilitation. Justine Gonzalez is among the first Latinas certified as a PCM trainer in North America.</p>
+    </div>
+
+    <div class="research-card" style="border-left-color: #4ade80;">
+      <div class="author" style="color:#4ade80;">Shinobu Kitayama · Cultural Self & Neuroscience</div>
+      <h4>The Self Is Inseparable from Cultural Context</h4>
+      <p>Kitayama's cultural neuroscience research demonstrates that cultural context shapes not just behavior, but neural architecture — the self is constructed in relation to its cultural environment. This grounds the Culture Pulse premise that organizational climate data is not background noise: it is a primary determinant of individual performance. An educator's ability to teach is shaped by the degree to which their institutional environment affirms or diminishes their cultural identity.</p>
+    </div>
+
+    <div class="research-card" style="border-left-color: #e879f9;">
+      <div class="author" style="color:#e879f9;">Masaru Emoto · Environmental Impact on Matter</div>
+      <h4>The Energetic Climate of Organizations Matters</h4>
+      <p>Emoto's widely cited research on the structural response of water molecules to language, intention, and environmental conditions provides a powerful metaphoric and increasingly interdisciplinary argument: the emotional and linguistic climate of an organization has measurable effects on the people — and the learning — within it. Culture Pulse 360™ acknowledges this by treating the qualitative open-response items (which capture the emotional tone of employee voice) as quantitatively significant pattern data.</p>
+    </div>
+
+    <div class="research-card" style="border-left-color: #94a3b8;">
+      <div class="author" style="color:#94a3b8;">Hoy, Goddard & Woolfolk · Collective Efficacy</div>
+      <h4>Cultural Trust Predicts Student Achievement</h4>
+      <p>The correlation between trust among colleagues and collective efficacy (r = .67, p &lt; .001) provides the statistical backbone for why building belonging and leadership trust — not just instructional skill — is the highest-leverage intervention an organization can make. Culture Pulse Domains 3, 5, and 6 are designed precisely to measure the trust infrastructure that makes collective efficacy possible.</p>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════
+     SECTION 5: DOL AI LITERACY ALIGNMENT
+══════════════════════════════════════════ -->
+<section id="ai">
+  <p class="section-label" style="color: var(--teal);">Workforce Development Alignment</p>
+  <h2 class="section-title">Aligned to the U.S. Department of Labor's AI Literacy Framework</h2>
+  <p class="section-desc">
+    The Culture Pulse 360™ interactive guided analysis process and planning day model are not only consistent with emerging AI literacy frameworks — they are a human-centered embodiment of the DOL's principles. As AI tools increasingly enter K12 and organizational contexts, the capacity to <em>reflect on data, direct AI effectively, evaluate outputs, and apply learning responsibly</em> requires precisely the kind of internal cultural readiness that Culture Pulse 360™ builds. Below is an explicit alignment between the DOL's 5 Foundational Content Areas and 7 Effective Delivery Principles and the Culture Pulse 360™ process.
+  </p>
+
+  <p style="font-size:0.85rem; color:var(--dim); margin-bottom:1.5rem; font-style:italic;">
+    Source: U.S. Department of Labor AI Literacy Framework — 5 Foundational Content Areas · 7 Effective Delivery Principles
+  </p>
+
+  <p class="section-label" style="color: var(--teal); margin-bottom:0.75rem;">5 Foundational Content Areas</p>
+  <div class="dol-grid">
+
+    <div class="dol-card">
+      <div class="dol-num">1</div>
+      <h4>Understand AI Principles</h4>
+      <p>Understanding AI's core concepts, capabilities, and limitations as the foundation for effective use.</p>
+      <p class="align-note">Culture Pulse Alignment: The Reflect-Learn-Apply cycle builds foundational data literacy — the same cognitive framework needed to understand what AI can and cannot do with organizational data.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">2</div>
+      <h4>Explore AI Uses</h4>
+      <p>Directly exploring AI tools, relevant use cases, and how AI can complement human expertise.</p>
+      <p class="align-note">Culture Pulse Alignment: Guided analysis sessions train leaders to interrogate data sources and identify patterns — a direct analog to the critical evaluation required when exploring AI-generated outputs.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">3</div>
+      <h4>Direct AI Effectively</h4>
+      <p>Understanding how to provide the right context and create clear prompts that produce effective outputs.</p>
+      <p class="align-note">Culture Pulse Alignment: Introspective Leadership Questions™ train leaders to ask precise, context-rich questions of their data — the same discipline required to direct AI tools effectively through high-quality prompting.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">4</div>
+      <h4>Evaluate AI Outputs</h4>
+      <p>Assessing AI-generated results for accuracy and relevance; iterating on outputs.</p>
+      <p class="align-note">Culture Pulse Alignment: The entire domain-level analysis process requires leaders to evaluate data outputs for validity, triangulate with qualitative evidence, and iterate — building the evaluative disposition the DOL identifies as critical for AI literacy.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">5</div>
+      <h4>Use AI Responsibly</h4>
+      <p>Using AI in ethical and secure ways, protecting critical information, and ensuring accountability for outcomes.</p>
+      <p class="align-note">Culture Pulse Alignment: The anonymous, human-centered survey design and the ethics of facilitation (Rogers' unconditional positive regard, Berne's Adult ego state) model the exact accountability and ethical responsibility the DOL prioritizes for AI use.</p>
+    </div>
+
+  </div>
+
+  <p class="section-label" style="color: var(--teal); margin-top:2.5rem; margin-bottom:0.75rem;">7 Effective Delivery Principles</p>
+  <div class="dol-grid">
+
+    <div class="dol-card">
+      <div class="dol-num">1</div>
+      <h4>Enable Experiential Learning</h4>
+      <p>Delivering AI literacy through practical, hands-on experiences in real-world situations.</p>
+      <p class="align-note">Culture Pulse Alignment: Every planning day IS a real-world data experience. Leaders practice data analysis with their own building's live data — not hypothetical scenarios.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">2</div>
+      <h4>Embed Learning in Context</h4>
+      <p>Integrating learning into existing processes and the industry context that makes it most actionable.</p>
+      <p class="align-note">Culture Pulse Alignment: The Culture Pulse 360™ is always administered within the organization's actual strategic goals and embedded in their existing professional learning calendar — never a standalone add-on.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">3</div>
+      <h4>Build Complementary Human Skills</h4>
+      <p>Using AI to augment human skills such as judgment, creativity, communication, and problem-solving.</p>
+      <p class="align-note">Culture Pulse Alignment: PCM-informed facilitation develops precisely these skills: real-time judgment, creative problem-solving, and cross-personality communication — the human capacities that AI cannot replace.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">4</div>
+      <h4>Address Prerequisites to AI Literacy</h4>
+      <p>Addressing barriers to participation, including digital literacy and access.</p>
+      <p class="align-note">Culture Pulse Alignment: Domain 6 (Operations & Talent Management) directly surfaces whether adequate systems support individual talent and access — including the digital and material infrastructure required for AI participation.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">5</div>
+      <h4>Create Pathways for Continued Learning</h4>
+      <p>Providing structured routes to progress toward more advanced, specialized skills.</p>
+      <p class="align-note">Culture Pulse Alignment: The ORIGIN™ self-paced PGP program, Cultural Capacity Weekly™, and the Inclusive Leader Cohort create exactly these structured, tiered pathways — from foundational survey data to advanced cultural leadership practice.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">6</div>
+      <h4>Prepare Enabling Roles</h4>
+      <p>Equipping managers, counselors, and others who play a supportive role in a participant's learning.</p>
+      <p class="align-note">Culture Pulse Alignment: The entire distributive leadership model is built to equip grade-level leaders, instructional coaches, deans, and vice principals as enabling roles — the exact architecture the DOL describes.</p>
+    </div>
+
+    <div class="dol-card">
+      <div class="dol-num">7</div>
+      <h4>Design for Agility</h4>
+      <p>Ensuring there are proactive, built-in mechanisms to rapidly update content as capabilities evolve.</p>
+      <p class="align-note">Culture Pulse Alignment: Year-over-year longitudinal administration (KSC 2021–2024, WSD 92½ 2023–2025) with updated domain priorities based on prior-year data demonstrates exactly the agile, iterative design the DOL champions.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <p>
+    <strong>Culture Pulse 360™</strong> is a proprietary instrument of <strong>EducatorAide, Inc.</strong><br>
+    Developed in partnership with <strong>LRF Bird Equity Consulting</strong> &amp; <strong>Identity Capital Consulting</strong><br>
+    Reliability validated by SPSS analysis: Cronbach's α = .950 · McDonald's Ω = .951 · N = 379<br><br>
+    Justine R. Gonzalez, PhD (cand.) · Indiana State University · ORCID Researcher<br>
+    PCM Certified Trainer · Kahler Communications Inc.<br><br>
+    © EducatorAide, Inc. · educatoraide.com · All rights reserved.
+  </p>
+</footer>
+
+<script>
+  // Remove overlay after animation completes
+  setTimeout(() => {
+    const overlay = document.getElementById('intro-overlay');
+    if (overlay) overlay.remove();
+  }, 5600);
+</script>
+
+</body>
+</html>
